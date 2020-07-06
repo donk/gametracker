@@ -8,9 +8,14 @@ const headers = {
 const gameFields = `artworks.url, category, websites.*, videos.name, videos.video_id, cover.url, genres.*, name, platforms.*, total_rating, screenshots.url, slug, summary, time_to_beat.*`;
 
 module.exports = {
-  all: function (offset, limit) {
-    const sortBy = `sort popularity desc; where total_rating >= 20 & themes != (42);`;
+  all: function (offset, limit, platforms) {
+    let platformQuery = "";
+    if (platforms){
+     platformQuery = `& platforms = (${platforms})`;
+    }
+    const sortBy = `sort popularity desc; where total_rating >= 20 & themes != (42) ${platformQuery};`;
     const queryString = `fields ${gameFields}; offset ${offset}; limit ${limit}; ${sortBy}`;
+    console.log(queryString);
     return axios.get(process.env.IGDB_URL_GAMES, {
       method: "GET",
       data: queryString,
@@ -24,6 +29,7 @@ module.exports = {
     }
     const sortBy = `sort popularity desc; where total_rating >= 50 & themes != (42) & id = (${ids}); limit 500;`;
     const queryString = `fields ${gameFields}; ${sortBy};`;
+    
     return axios.get(process.env.IGDB_URL_GAMES, {
       method: "GET",
       data: queryString,

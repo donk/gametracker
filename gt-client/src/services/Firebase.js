@@ -22,14 +22,36 @@ export const anonymousSignin = () => {
   return firebase.auth().signInAnonymously();
 };
 
-export const getOwnedGames = (uid = "test1") => {
+// Game lists
+export const getOwnedGames = (uid) => {
   return firestore.collection("gameList").doc(uid).get();
 };
 
-export const setOwnedGames = (uid = "test1", gameList) => {
+export const setOwnedGames = (uid, gameList) => {
   return firestore
     .collection("gameList")
     .doc(uid)
     .set({ owned: gameList }, { merge: true });
+};
+
+// Filter settings
+
+export const getFilters = (uid) => {
+  return firestore.collection("filterSettings").doc(uid).get();
+};
+
+
+export const setFilterCount = (uid, count) => {
+  return firestore
+    .collection("filterSettings")
+    .doc(uid)
+    .set({ listCount: count }, { merge: true });
+};
+
+export const setFilterPlatforms = (uid, platforms) => {
+  return firestore
+    .collection("filterSettings")
+    .doc(uid)
+    .set({ platforms: platforms }, { merge: true });
 };
 

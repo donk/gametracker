@@ -5,8 +5,9 @@ module.exports = {
   getAll: function (req, res) {
     const offset = req.query.offset || 0;
     const limit = req.query.limit || 1;
+    const platforms = req.query.platforms || "";
     gameQueries
-      .all(offset, limit)
+      .all(offset, limit, platforms)
       .then((response) => {
         res.status(200).send(response.data);
       })

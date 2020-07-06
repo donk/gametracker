@@ -62,6 +62,9 @@ const Sidebar = (props) => {
         <StyledNavLink exact to="/games/page/1" activeStyle={activeStyle}>
           All Games
         </StyledNavLink>
+        <StyledNavLink exact to="/games/upcoming" activeStyle={activeStyle}>
+          Upcoming Games
+        </StyledNavLink>
         <StyledNavLink to="/owned" activeStyle={activeStyle}>
           Owned Games {ownedList.length > -1 && <span>{ownedList.length}</span>}
         </StyledNavLink>

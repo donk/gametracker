@@ -5,15 +5,15 @@ const headers = {
   "user-key": process.env.IGDB_KEY,
 };
 
-const gameFields = `artworks.url, category, websites.*, videos.name, videos.video_id, cover.url, genres.*, name, platforms.*, total_rating, screenshots.url, slug, summary, time_to_beat.*`;
+const gameFields = `artworks.url, release_dates.*, category, websites.*, videos.name, videos.video_id, cover.url, genres.*, name, platforms.*, total_rating, screenshots.url, slug, summary, time_to_beat.*`;
 
 module.exports = {
-  all: function (offset, limit, platforms) {
+  all: function (offset, limit, platforms, filter) {
     let platformQuery = "";
     if (platforms){
      platformQuery = `& platforms = (${platforms})`;
     }
-    const sortBy = `sort popularity desc; where total_rating >= 20 & themes != (42) ${platformQuery};`;
+    const sortBy = `sort popularity desc; where total_rating >= 20 & themes != (42) ${platformQuery} ${filter};`;
     const queryString = `fields ${gameFields}; offset ${offset}; limit ${limit}; ${sortBy}`;
     console.log(queryString);
     return axios.get(process.env.IGDB_URL_GAMES, {

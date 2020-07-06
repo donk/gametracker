@@ -57,7 +57,7 @@ const GameGrid = (props) => {
 
   useEffect(() => {
     if (!props.owned) {
-      getAllGames(listCount, (listPage - 1) * listCount, platforms)
+      getAllGames(listCount, (listPage - 1) * listCount, platforms, props.filter)
         .then((response) => {
           console.log(response);
           setGameList(response);

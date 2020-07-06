@@ -3,7 +3,7 @@ const gameController = require("../../controllers/gameController");
 module.exports = function (app) {
   // Get all games
   // Format in a small way for cards
-  app.get("/games", gameController.getAll);
+  app.post("/games", gameController.getAll);
 
   // Get game by IDs
   app.get("/games/:ids", gameController.getGamesByIDs);

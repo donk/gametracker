@@ -1,0 +1,55 @@
+.game__card{
+  overflow:hidden;
+}
+
+.game__info,.game__platforms{
+  position:absolute;
+  top:100%;
+  width:100%;
+  background-color:#333;
+  transition: transform 0.3s;
+  color:white;
+  font-size:12px;
+}
+
+.game__platforms{
+  top:0;
+  transform:translateY(-100%);
+}
+
+.game__info-content,.game__platforms-content{
+  padding:5px;
+}
+
+.title{
+  font-weight:bold;
+}
+
+.game__card:hover .game__info{
+  transform:translateY(-100%);
+}
+
+.game__card:hover .game__platforms{
+  transform:translateY(0%);
+}
+
+.main-content{
+  position:relative;
+  flex-grow:1;
+  background-color:#222;
+  color:#eee;
+  overflow:hidden;
+  min-height:100vh;
+  margin-left:200px;
+}
+
+.flexxy{
+  display:flex;
+}
+
+.cover-art{
+  border-radius:10px;
+  margin-top:-125px;
+  display:block;
+  box-shadow:0 0 25px rgba(0,0,0,0.5);
+}

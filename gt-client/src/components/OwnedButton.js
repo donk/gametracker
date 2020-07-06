@@ -58,8 +58,8 @@ const OwnedButton = (props) => {
 
   return (
     <Button {...props} isOwned={isOwned} onClick={toggleOwned}>
-      {isOwned && <span>Owned</span>}
-      {!isOwned && <span>Unowned</span>}
+      {isOwned && <span>Following</span>}
+      {!isOwned && <span>Follow</span>}
     </Button>
   );
 };

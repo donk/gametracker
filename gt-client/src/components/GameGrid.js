@@ -8,10 +8,11 @@ import { gameListCount } from "../atoms/filters";
 
 import * as Firebase from "../services/Firebase";
 
-import { NavLink, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import GameCard from "./GameCard";
 import FilterPanel from "./FilterPanel";
+import Pagination from './Pagination';
 
 const Flexxy = styled.div`
   display: flex;
@@ -25,11 +26,11 @@ const GameGrid = (props) => {
   const userInfo = useRecoilValue(userInfoAtom);
   const [listCount, setListCount] = useRecoilState(gameListCount);
   const [platforms, setPlatforms] = useState([""]);
+  const [loading,setLoading] = useState(true);
 
   const params = useParams();
 
   const listPage = params.page || 1;
-
 
   const doChangeCount = (count) => {
     setListCount(count);
@@ -47,8 +48,10 @@ const GameGrid = (props) => {
       .then((data) => {
         setListCount(data.data().listCount);
         const fbPlatforms = data.data().platforms;
-        if (fbPlatforms)
+        if (fbPlatforms){
           setPlatforms(fbPlatforms);
+        }
+        setLoading(false);
       })
       .catch((err) => {
         console.log(err.message);
@@ -56,6 +59,7 @@ const GameGrid = (props) => {
   }, [userInfo]);
 
   useEffect(() => {
+    if (loading) return;
     if (!props.owned) {
       getAllGames(listCount, (listPage - 1) * listCount, platforms, props.filter)
         .then((response) => {
@@ -75,28 +79,24 @@ const GameGrid = (props) => {
           console.log(err.message);
         });
     }
-  }, [listPage, listCount,platforms]);
+  }, [listPage,listCount,platforms,loading]);
 
   return (
     <>
       <Flexxy>
-        <FilterPanel
+        {!props.owned && <FilterPanel
           changeCount={doChangeCount}
           count={listCount}
           changePlatforms={doChangePlatforms}
           platforms={platforms}
-        />
-        {gameList.map((game) => (
+        />} 
+        {!loading && gameList.map((game) => (
           <GameCard key={game.id} game={game} />
         ))}
+        {loading && <div>Loading...</div>}
       </Flexxy>
       <div>
-        <NavLink to={`/games/page/${parseInt(listPage) - 1}`}>
-          Last Page
-        </NavLink>
-        <NavLink to={`/games/page/${parseInt(listPage) + 1}`}>
-          Next Page
-        </NavLink>
+        <Pagination curPage={listPage} />
       </div>
     </>
   );

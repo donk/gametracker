@@ -20,20 +20,23 @@ const CardFrame = styled.div`
 const GameCard = (props) => {
   const [cover, setCover] = useState("");
   const [rating, setRating] = useState(0);
+  const [loading,setLoading] = useState(true);
 
   useEffect(() => {
     setRating(Math.round(props.game.total_rating));
     if (props.game.cover)
       setCover(props.game.cover.url.replace("t_thumb", "t_original"));
+    setLoading(false);
   }, [props.game]);
 
   return (
     <Link to={{
-        pathname:`/games/${props.game.slug}`,
+        pathname:`/game/${props.game.slug}`,
         state:{game:props.game}
     }}>
       <CardFrame className="game__card">
-        <img src={cover} height="275" alt={`${props.game.name} cover art`}/>
+        {!loading && <img src={cover} height="275" alt={`${props.game.name} cover art`}/>}
+        {loading && <div style={{width:'206px',height:'275px'}} />}
         <div className="game__platforms">
           <div className="game__platforms-content">
             {props.game.platforms && props.game.platforms.map((platform) => (

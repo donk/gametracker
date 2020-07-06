@@ -43,16 +43,22 @@ const App = () => {
             <Route key="home-page" path="/" exact>
               <GameGrid />
             </Route>
-            <Route key="home-paged" path="/games/page/:page" exact>
+            <Route key="home-base" path="/games/page/" exact>
               <GameGrid />
             </Route>
-            <Route key="upcoming" path="/games/upcoming" exact>
+            <Route key="home-paged" path="/games/page/:page" >
+              <GameGrid />
+            </Route>
+            <Route key="upcoming" path="/games/upcoming/page/" exact>
               <GameGrid filter={`& release_dates.date > ${Math.floor(curTime/1000)};`}/>
             </Route>
-            <Route key="owned-games" path="/owned" exact>
+            <Route key="upcoming-paged" path="/games/upcoming/page/:page" exact>
+              <GameGrid filter={`& release_dates.date > ${Math.floor(curTime/1000)};`}/>
+            </Route>
+            <Route key="owned-games" path="/followed" exact>
               <GameGrid owned />
             </Route>
-            <Route key="game-page" path="/games/:slug" exact>
+            <Route key="game-page" path="/game/:slug" exact>
               <GamePage />
             </Route>
           </Switch>

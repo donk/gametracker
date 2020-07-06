@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import { useRecoilValue} from "recoil";
+import { useRecoilValue } from "recoil";
 import { ownedGamesAtom } from "../atoms/ownedGames";
 
 const SidebarFrame = styled.div`
@@ -42,8 +42,8 @@ const StyledNavLink = styled(NavLink)`
 const StyledNavButton = styled.div`
   ${navStyles}
   padding:15px 0;
-  border-bottom:#000 1px solid;
-  background-color:#2a2a2a;
+  border-bottom: #000 1px solid;
+  background-color: #2a2a2a;
 `;
 
 const activeStyle = {
@@ -54,19 +54,24 @@ const activeStyle = {
 const Sidebar = (props) => {
   const ownedList = useRecoilValue(ownedGamesAtom);
 
-
   return (
     <SidebarFrame>
       <div className="content">
         <StyledNavButton>Login to sync</StyledNavButton>
-        <StyledNavLink exact to="/games/page/1" activeStyle={activeStyle}>
+        <StyledNavLink to="/games/page/" activeStyle={activeStyle}>
           All Games
         </StyledNavLink>
-        <StyledNavLink exact to="/games/upcoming" activeStyle={activeStyle}>
+        <StyledNavLink
+          to="/games/upcoming/page/"
+          activeStyle={activeStyle}
+        >
           Upcoming Games
         </StyledNavLink>
-        <StyledNavLink to="/owned" activeStyle={activeStyle}>
-          Owned Games {ownedList.length > -1 && <span>{ownedList.length}</span>}
+        <StyledNavLink to="/followed" activeStyle={activeStyle}>
+          Followed Games 
+          {ownedList.length > -1 && (
+            <span style={{ fontSize: "14px" }}> ({ ownedList.length})</span>
+          )}
         </StyledNavLink>
       </div>
     </SidebarFrame>

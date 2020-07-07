@@ -7,6 +7,7 @@ import LaunchButton from "./LaunchButton";
 
 const InfoFrame = styled.div`
   padding: 0 20px;
+  width:100%;
 
   header {
     font-size: 2em;

@@ -53,7 +53,7 @@ const MediaPanel = (props) => {
 
   return (
     <>
-      <div style={{ maxWidth: "1200px", margin: "0 auto", marginTop: "-75px" }}>
+      <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
         <h2>Media</h2>
       </div>
       <div
@@ -75,8 +75,8 @@ const MediaPanel = (props) => {
             {videos && videos.map((video) => {
               const url = `https://www.youtube.com/embed/${video.video_id}`;
               return (
-                <div className="video-container">
-                  <iframe allowfullscreen="true" src={url} frameBorder="0" height="100%"></iframe>
+                <div className="video-container" key={video.video_id}>
+                  <iframe allowFullScreen={true} src={url} frameBorder="0" height="100%"></iframe>
                 </div>
               );
             })}

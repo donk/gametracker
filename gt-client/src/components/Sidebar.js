@@ -57,7 +57,7 @@ const Sidebar = (props) => {
   return (
     <SidebarFrame>
       <div className="content">
-        <StyledNavButton>Login to sync</StyledNavButton>
+        {false && <StyledNavButton>Login to sync</StyledNavButton>}
         <StyledNavLink to="/games/page/" activeStyle={activeStyle}>
           All Games
         </StyledNavLink>

@@ -5,7 +5,10 @@ const headers = {
   "user-key": process.env.IGDB_KEY,
 };
 
-const gameFields = `artworks.url, release_dates.*, similar_games, first_release_date, category, websites.*, videos.name, videos.video_id, cover.url, genres.*, name, platforms.*, total_rating, screenshots.url, slug, summary, time_to_beat.*`;
+const gameFields = `involved_companies.developer, involved_companies.publisher, involved_companies.supporting, 
+  involved_companies.company.name, involved_companies.company.websites.url, artworks.url, release_dates.*, similar_games, 
+  first_release_date, category, websites.*, videos.name, videos.video_id, cover.url, genres.*, name, platforms.*, total_rating, 
+  screenshots.url, slug, summary, time_to_beat.*, themes.name, game_modes.*`;
 
 module.exports = {
   all: function (offset, limit, platforms, filter) {

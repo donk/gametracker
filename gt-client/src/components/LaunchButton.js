@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import steam from '../img/steam.png';
 
 const Button = styled.div`
   background-color: ${(props) => (props.isOwned ? "orange" : "#111")};
@@ -17,14 +18,14 @@ const Button = styled.div`
 `;
 
 const launchGame = (id) => {
-  window.location = `steam://rungameid/${id}`
+  window.location = `steam://rungameid/${id}`;
 }
 
 const LaunchButton = (props) => {
   return(
     <Button {...props} onClick={()=>launchGame(props.id)}>
       <span>
-        Launch in {props.platform}
+        <img src={steam} style={{height:'1em',marginRight:'5px'}}/>Launch in {props.platform}
       </span>
     </Button>
   )

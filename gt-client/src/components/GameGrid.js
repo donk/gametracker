@@ -46,9 +46,14 @@ const GameGrid = (props) => {
     if (!userInfo.id) return;
     Firebase.getFilters(userInfo.id)
       .then((data) => {
-        const cnt = data.data().listCount || 20;
+        let cnt = 20;
+        let fbPlatforms = false;
+        if (data.data()){
+          fbPlatforms = data.data().platforms;
+          cnt = data.data().listCount || 20;
+        }
         setListCount(cnt);
-        const fbPlatforms = data.data().platforms;
+        
         if (fbPlatforms){
           setPlatforms(fbPlatforms);
         }

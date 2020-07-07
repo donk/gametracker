@@ -13,7 +13,6 @@ const getAllGames = async (limit, offset, platforms, filters) => {
     .map((val) => {
       const platformInfo = findItem(platformIDs, { slug: val }, "slug");
       if (platformInfo) {
-        console.log(platformInfo);
         return platformInfo.id;
       }
     });
@@ -35,7 +34,6 @@ const getGamesByIDs = async (ids,is_ids = false) => {
   }else{
     idList = ids;
   }
-  console.log(idList);
   const results = await axios.get(`http://192.168.0.182:3007/games/${idList}`);
   return results.data;
 };

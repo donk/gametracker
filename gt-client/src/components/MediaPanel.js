@@ -8,35 +8,36 @@ const SliderFrame = styled.div`
   margin: 0 auto;
   padding: 10px;
 
+  .slick-dots li button::before {
+    color: white;
+  }
+
   h2 {
     margin-top: 2em;
   }
 
-  .video-container {
-    position: relative;
-    display: inline-block;
-    width: 534px;
-    height: 225px;
-    margin: 5px;
+  .video-container iframe{
+    width:940px;
+    height:529px;
   }
 
-  .video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+  .slick-track{
+    display: flex;
+
+    .slick-slide{
+      display: flex;
+      height: auto;
+      align-items: center; 
+      justify-content: center; 
+      transition:opacity 0.3s;
+    }
+
+    .slick-slide:not(.slick-active){
+      opacity:0.5;
+    }
   }
 
-  .carousel .slide img {
-    max-height: 225px; 
-    width: auto;
-  }
 
-  img {
-    display: inline-block;
-    margin: 5px;
-  }
 `;
 
 const MediaPanel = (props) => {
@@ -55,33 +56,37 @@ const MediaPanel = (props) => {
       <div style={{ maxWidth: "1200px", margin: "0 auto", marginTop: "-75px" }}>
         <h2>Media</h2>
       </div>
-      <div style={{ backgroundColor: "rgba(0,0,0,0.3)", padding: "10px" }}>
+      <div
+        style={{
+          backgroundColor: "rgba(0,0,0,0.3)",
+          padding: "10px",
+          paddingBottom: "25px",
+        }}
+      >
         <SliderFrame>
           <Slider
             dots={true}
             infinite={true}
-            slidesToShow={3}
+            slidesToShow={1}
             slidesToScroll={1}
+            variableWidth={true}
+            centerMode={true}
           >
-            {videos.map((video) => {
+            {videos && videos.map((video) => {
               const url = `https://www.youtube.com/embed/${video.video_id}`;
               return (
-                <div key={video.id} className="video-container">
-                  <iframe src={url} frameBorder="0"></iframe>
+                <div className="video-container">
+                  <iframe allowfullscreen="true" src={url} frameBorder="0" height="100%"></iframe>
                 </div>
               );
             })}
-            {artworks.map((artwork) => {
-              const url = artwork.url.replace("t_thumb", "t_original");
-              return (
-                <img key={artwork.id} src={url} />
-              );
+            {artworks && artworks.map((artwork) => {
+              const url = artwork.url.replace("t_thumb", "t_screenshot_big");
+              return <img key={artwork.id} src={url} />;
             })}
-            {images.map((image) => {
-              const url = image.url.replace("t_thumb", "t_original");
-              return (
-                <img key={image.id} src={url} />
-              );
+            {images && images.map((image) => {
+              const url = image.url.replace("t_thumb", "t_screenshot_big");
+              return <img key={image.id} src={url} />;
             })}
           </Slider>
         </SliderFrame>

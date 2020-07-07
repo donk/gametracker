@@ -31,6 +31,10 @@ const ContentFrame = styled.div`
   .nobg {
     background-color: transparent;
   }
+
+  h3{
+    margin-top:0;
+  }
 `;
 
 const GamePage = (props) => {
@@ -43,12 +47,11 @@ const GamePage = (props) => {
   useEffect(() => {
     if (location.state) {
       setGame(location.state.game);
-      console.log("getting game from props");
       console.log(location.state.game);
     } else {
-      console.log("getting game by slug");
       getGameBySlug(params.slug).then((response) => {
         setGame(response);
+        console.log(response);
       });
     }
   }, [location.state, params.slug]);
@@ -57,7 +60,6 @@ const GamePage = (props) => {
     if (game.similar_games) {
       getGamesByIDs(game.similar_games, true).then((response) => {
         setSimilarGames(response);
-      
       });
     }
   }, [game]);
@@ -80,8 +82,8 @@ const GamePage = (props) => {
           images={game.screenshots}
           artworks={game.artworks}
         />
-        <div className="content" style={{transform:'none'}}>
-          Similar Games
+        <div className="content" style={{transform:'none',marginTop:'20px'}}>
+          <h3>Similar Games</h3>
           <Slider dots={true} infinite={false} slidesToShow={6} slidesToScroll={1}>
             {similarGames &&
               similarGames.map((sGame, idx) => {

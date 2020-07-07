@@ -26,6 +26,7 @@ const CoverArt = (props) => {
           src={image}
           width="200"
           height="267"
+          alt="cover art"
         />
       )}
     </>

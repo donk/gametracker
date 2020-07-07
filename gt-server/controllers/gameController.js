@@ -1,4 +1,4 @@
-const gameQueries = require("../middleware/gameQueries");
+const gameQueries = require("../operations/gameQueries");
 
 module.exports = {
   // Get all games
@@ -13,6 +13,7 @@ module.exports = {
         res.status(200).send(response.data);
       })
       .catch((err) => {
+        console.log('Error getting all');
         console.log(err.message);
       });
   },
@@ -26,6 +27,7 @@ module.exports = {
       })
       .catch((err) => {
         res.sendStatus(400);
+        console.log('Error getting ids');
         console.log(err.message);
       });
   },

@@ -24,7 +24,7 @@ const GameGrid = (props) => {
   const [gameList, setGameList] = useState([]);
   const ownedGames = useRecoilValue(ownedGamesAtom);
   const userInfo = useRecoilValue(userInfoAtom);
-  const [listCount, setListCount] = useRecoilState(gameListCount);
+  const [listCount, setListCount] = useRecoilState(gameListCount || 0);
   const [platforms, setPlatforms] = useState([""]);
   const [loading,setLoading] = useState(true);
 
@@ -46,7 +46,8 @@ const GameGrid = (props) => {
     if (!userInfo.id) return;
     Firebase.getFilters(userInfo.id)
       .then((data) => {
-        setListCount(data.data().listCount);
+        const cnt = data.data().listCount || 20;
+        setListCount(cnt);
         const fbPlatforms = data.data().platforms;
         if (fbPlatforms){
           setPlatforms(fbPlatforms);
@@ -56,6 +57,7 @@ const GameGrid = (props) => {
       .catch((err) => {
         console.log(err.message);
       });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userInfo]);
 
   useEffect(() => {
@@ -63,14 +65,13 @@ const GameGrid = (props) => {
     if (!props.owned) {
       getAllGames(listCount, (listPage - 1) * listCount, platforms, props.filter)
         .then((response) => {
-          console.log(response);
           setGameList(response);
         })
         .catch((err) => {
           console.error(err.message);
         });
     } else {
-      if (ownedGames.length == 0) return;
+      if (ownedGames.length === 0) return;
       getGamesByIDs(ownedGames)
         .then((response) => {
           setGameList(response);
@@ -79,6 +80,7 @@ const GameGrid = (props) => {
           console.log(err.message);
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [listPage,listCount,platforms,loading]);
 
   return (

@@ -65,11 +65,12 @@ const PlatformInfo = (props) => {
     if (props.size){
       setSize(props.size);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[props.platform])
 
   return(
     <PlatformItem style={{fontSize:'12px'}}>
-      {logo && <img src={logo} height={size} />} {props.platform.abbreviation}
+      {logo && <img alt="platform logo" src={logo} height={size} />} {props.platform.abbreviation}
     </PlatformItem>
   )
 }

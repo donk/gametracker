@@ -42,10 +42,9 @@ const OwnedButton = (props) => {
   };
 
   useEffect(() => {
-    console.log(gameList);
     const currentGame = findItem(gameList, { id: props.gameID }, "id");
     if (currentGame) setIsOwned(currentGame.owned);
-  }, [props.gameID]);
+  }, [props.gameID,gameList]);
 
   const toggleOwned = () => {
     if (!isOwned) {

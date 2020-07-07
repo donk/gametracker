@@ -2,7 +2,7 @@ import axios from "axios";
 import platformIDs from "../components/PlatformIDs";
 import { findItem } from "../util/array";
 
-const getAllGames = async (limit, offset, platforms, filters) => {
+const getAllGames = async (limit = 20, offset = 0, platforms, filters) => {
   const platformList = platforms
     .filter((val) => {
       if (val === "") {
@@ -15,6 +15,7 @@ const getAllGames = async (limit, offset, platforms, filters) => {
       if (platformInfo) {
         return platformInfo.id;
       }
+      return false;
     });
   
   

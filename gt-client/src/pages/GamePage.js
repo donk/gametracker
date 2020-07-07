@@ -66,7 +66,6 @@ function hhmmss(secs) {
 const GamePage = (props) => {
   const [game, setGame] = useState({});
   const [similarGames, setSimilarGames] = useState([]);
-  const [similarCount, setSimilarCount] = useState(3);
   const [developers, setDevelopers] = useState([]);
   const [publishers, setPublishers] = useState([]);
   const params = useParams();
@@ -122,47 +121,49 @@ const GamePage = (props) => {
           </InfoCard>
 
           <InfoCard title="Developers">
-            {developers.map((devs) => {
+            {developers.map((devs, idx) => {
               return (
-                <>
+                <div key={idx}>
                   {devs.company.websites && (
-                    <a href={devs.company.websites[0].url} target="_blank">
+                    <a href={devs.company.websites[0].url} target="_blank" rel="noopener noreferrer">
                       <div>{devs.company.name}</div>
                     </a>
                   )}
                   {!devs.company.websites && <div>{devs.company.name}</div>}
-                </>
+                </div>
               );
             })}
           </InfoCard>
 
           <InfoCard title="Publishers">
-            {publishers.map((pubs) => {
+            {publishers.map((pubs, idx) => {
               return (
-                <>
+                <div key={idx}>
                   {pubs.company.websites && (
-                    <a href={pubs.company.websites[0].url} target="_blank">
+                    <a href={pubs.company.websites[0].url} target="_blank" rel="noopener noreferrer">
                       <div>{pubs.company.name}</div>
                     </a>
                   )}
-                  {!pubs.company.websites && <div>{pubs.company.name}</div>}
-                </>
+                  {!pubs.company.websites && (
+                    <div key={idx}>{pubs.company.name}</div>
+                  )}
+                </div>
               );
             })}
           </InfoCard>
 
-          {game.game_modes &&
+          {game.game_modes && (
             <InfoCard title="Game Modes">
-              {game.game_modes.map((gamemode) => {
-                return <div>{gamemode.name}</div>
+              {game.game_modes.map((gamemode, idx) => {
+                return <div key={idx}>{gamemode.name}</div>;
               })}
             </InfoCard>
-          }
+          )}
 
           {game.genres && (
             <InfoCard title="Genres">
-              {game.genres.map((genre) => {
-                return <div>{genre.name}</div>;
+              {game.genres.map((genre, idx) => {
+                return <div key={idx}>{genre.name}</div>;
               })}
             </InfoCard>
           )}
@@ -184,13 +185,13 @@ const GamePage = (props) => {
             </InfoCard>
           )}
 
-          {game.themes &&
+          {game.themes && (
             <InfoCard title="Themes">
-              {game.themes.map((theme) => {
-                return <div>{theme.name}</div>
+              {game.themes.map((theme, idx) => {
+                return <div key={idx}>{theme.name}</div>;
               })}
             </InfoCard>
-          }
+          )}
         </div>
 
         <MediaPanel

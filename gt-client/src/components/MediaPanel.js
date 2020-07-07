@@ -49,7 +49,7 @@ const MediaPanel = (props) => {
     if (props.images) setImages(props.images);
     if (props.artworks) setArtworks(props.artworks);
     if (props.videos) setVideos(props.videos);
-  }, [props.images, props.artworks]);
+  }, [props.images, props.artworks,props.videos]);
 
   return (
     <>
@@ -72,21 +72,21 @@ const MediaPanel = (props) => {
             variableWidth={true}
             centerMode={true}
           >
-            {videos && videos.map((video) => {
+            {videos && videos.map((video,idx) => {
               const url = `https://www.youtube.com/embed/${video.video_id}`;
               return (
                 <div className="video-container" key={video.video_id}>
-                  <iframe allowFullScreen={true} src={url} frameBorder="0" height="100%"></iframe>
+                  <iframe title={idx} allowFullScreen={true} src={url} frameBorder="0" height="100%"></iframe>
                 </div>
               );
             })}
-            {artworks && artworks.map((artwork) => {
+            {artworks && artworks.map((artwork,idx) => {
               const url = artwork.url.replace("t_thumb", "t_screenshot_big");
-              return <img key={artwork.id} src={url} />;
+              return <img alt={`img${idx}`} key={artwork.id} src={url} />;
             })}
-            {images && images.map((image) => {
+            {images && images.map((image,idx) => {
               const url = image.url.replace("t_thumb", "t_screenshot_big");
-              return <img key={image.id} src={url} />;
+              return <img alt={`img${idx}`} key={image.id} src={url} />;
             })}
           </Slider>
         </SliderFrame>

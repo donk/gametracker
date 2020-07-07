@@ -25,7 +25,7 @@ const LaunchButton = (props) => {
   return(
     <Button {...props} onClick={()=>launchGame(props.id)}>
       <span>
-        <img src={steam} style={{height:'1em',marginRight:'5px'}}/>Launch in {props.platform}
+        <img alt="steam icon" src={steam} style={{height:'1em',marginRight:'5px'}}/>Launch in {props.platform}
       </span>
     </Button>
   )

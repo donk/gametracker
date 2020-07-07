@@ -50,10 +50,10 @@ const App = () => {
               <GameGrid />
             </Route>
             <Route key="upcoming" path="/games/upcoming/page/" exact>
-              <GameGrid filter={`& release_dates.date > ${Math.floor(curTime/1000)};`}/>
+              <GameGrid filter={`& first_release_date > ${Math.floor(curTime/1000)};`}/>
             </Route>
             <Route key="upcoming-paged" path="/games/upcoming/page/:page" exact>
-              <GameGrid filter={`& release_dates.date > ${Math.floor(curTime/1000)};`}/>
+              <GameGrid filter={`& first_release_date > ${Math.floor(curTime/1000)};`}/>
             </Route>
             <Route key="owned-games" path="/followed" exact>
               <GameGrid owned />

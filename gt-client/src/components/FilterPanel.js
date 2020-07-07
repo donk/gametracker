@@ -11,7 +11,7 @@ const FilterContent = styled.div`
     margin: 0 10px;
     display: block;
   }
-
+ 
   .platforms {
     display: flex;
 

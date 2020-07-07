@@ -26,11 +26,16 @@ const getAllGames = async (limit, offset, platforms, filters) => {
   return results.data;
 };
 
-const getGamesByIDs = async (ids) => {
+const getGamesByIDs = async (ids,is_ids = false) => {
   let idList = [];
-  ids.forEach((val, idx) => {
-    idList.push(val.id);
-  });
+  if (!is_ids){
+    ids.forEach((val, idx) => {
+      idList.push(val.id);
+    });
+  }else{
+    idList = ids;
+  }
+  console.log(idList);
   const results = await axios.get(`http://192.168.0.182:3007/games/${idList}`);
   return results.data;
 };

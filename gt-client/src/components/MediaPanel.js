@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import Slider from "react-slick";
 
 const SliderFrame = styled.div`
   white-space: nowrap;
   max-width: 1200px;
   margin: 0 auto;
   padding: 10px;
-  overflow: hidden;
 
   h2 {
     margin-top: 2em;
@@ -14,18 +14,23 @@ const SliderFrame = styled.div`
 
   .video-container {
     position: relative;
-    display:inline-block;
-    width:534px;
-    height:300px;
-    margin:5px;
+    display: inline-block;
+    width: 534px;
+    height: 225px;
+    margin: 5px;
   }
 
-  .video-container iframe{
+  .video-container iframe {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+  }
+
+  .carousel .slide img {
+    max-height: 225px; 
+    width: auto;
   }
 
   img {
@@ -52,27 +57,33 @@ const MediaPanel = (props) => {
       </div>
       <div style={{ backgroundColor: "rgba(0,0,0,0.3)", padding: "10px" }}>
         <SliderFrame>
-        <div>
-          {videos.map((video) => {
-            const url = `https://www.youtube.com/embed/${video.video_id}`;
-            return (
-              <div key={video.id} className="video-container">
-                <iframe
-                  src={url}
-                  frameBorder="0"
-                ></iframe>
-              </div>
-            );
-          })}
-          {artworks.map((artwork) => {
-            const url = artwork.url.replace("t_thumb", "t_original");
-            return <img key={artwork.id} src={url} height="300" />;
-          })}
-          {images.map((image) => {
-            const url = image.url.replace("t_thumb", "t_original");
-            return <img key={image.id} src={url} height="300" />;
-          })}
-          </div>
+          <Slider
+            dots={true}
+            infinite={true}
+            slidesToShow={3}
+            slidesToScroll={1}
+          >
+            {videos.map((video) => {
+              const url = `https://www.youtube.com/embed/${video.video_id}`;
+              return (
+                <div key={video.id} className="video-container">
+                  <iframe src={url} frameBorder="0"></iframe>
+                </div>
+              );
+            })}
+            {artworks.map((artwork) => {
+              const url = artwork.url.replace("t_thumb", "t_original");
+              return (
+                <img key={artwork.id} src={url} />
+              );
+            })}
+            {images.map((image) => {
+              const url = image.url.replace("t_thumb", "t_original");
+              return (
+                <img key={image.id} src={url} />
+              );
+            })}
+          </Slider>
         </SliderFrame>
       </div>
     </>
